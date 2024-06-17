@@ -1,6 +1,8 @@
 
 namespace Catalog.API.Products.GetProducts;
-//public record GetProductsQuery() : IQuery<GetProductsResult>;
+
+
+
 public record GetProductsResponse(IEnumerable<Product> Products);
 public class GetProductsEndpoint : ICarterModule
 {
@@ -13,7 +15,12 @@ public class GetProductsEndpoint : ICarterModule
 
             var response = await sender.Send(query);
 
-            return new GetProductsResponse(new List<Product>());
+            var result = response.Adapt<GetProductsResponse>();
+
+            return result;
+     
+
+               
         });
     }
 }

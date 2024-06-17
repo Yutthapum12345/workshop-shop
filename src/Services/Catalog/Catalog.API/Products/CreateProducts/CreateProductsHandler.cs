@@ -1,17 +1,40 @@
 
-using Marten;
+using FluentValidation;
+
+using System.Data;
 
 namespace Catalog.API.Products.CreateProducts;
 
 public record CreateProductCommand(string Name, List<string> Catelog, string Description, string ImageFile, decimal Price):ICommand<CreateProductResult>;
 public record CreateProductResult(Guid Id);
-public class CreateProductCommandHandler(IDocumentSession session) : ICommandHandler<CreateProductCommand, CreateProductResult>
+public class CreateProductCommandValidator:AbstractValidator<CreateProductCommand>
+{
+
+    public CreateProductCommandValidator()
+    {
+      RuleFor(x=>x.Name).NotEmpty().WithMessage("Name Is Required");
+      RuleFor(x=>x.Catelog).NotEmpty().WithMessage("Name Is Required");
+    
+      RuleFor(x=>x.Description).NotEmpty().WithMessage("Name Is Required");
+    
+      RuleFor(x=>x.ImageFile).NotEmpty().WithMessage("Name Is Required");
+    
+      RuleFor(x=>x.Price).NotEmpty().WithMessage("Name Is Required");
+    
+    
+    }
+
+}
+
+
+public class CreateProductCommandHandler(IDocumentSession session): ICommandHandler<CreateProductCommand, CreateProductResult>
 {
    
-
    
     public async Task<CreateProductResult> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
+        
+
         var product = new Product
         {
             

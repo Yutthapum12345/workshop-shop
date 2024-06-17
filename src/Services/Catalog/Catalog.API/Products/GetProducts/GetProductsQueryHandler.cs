@@ -4,10 +4,13 @@ namespace Catalog.API.Products.GetProducts;
 
 public record GetProductsQuery() : IQuery<GetProductsResult>;
 public record GetProductsResult(IEnumerable<Product> Products);
-public class GetProductsQueryHandler : IQueryHandler<GetProductsQuery, GetProductsResult>
+public class GetProductsQueryHandler(IDocumentSession session) : IQueryHandler<GetProductsQuery, GetProductsResult>
 {
-    public Task<GetProductsResult> Handle(GetProductsQuery request, CancellationToken cancellationToken)
+    public async  Task<GetProductsResult> Handle(GetProductsQuery request, CancellationToken cancellationToken)
     {
-        return new Task<GetProductsResult>(() => new GetProductsResult(new List<Product>()));
+
+           var products = await session.Query<Product>().ToListAsync(cancellationToken);
+           return new GetProductsResult(products);
+           
     }
 }
