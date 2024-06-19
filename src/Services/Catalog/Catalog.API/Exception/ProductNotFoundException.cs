@@ -1,9 +1,12 @@
-﻿namespace Catalog.API;
+﻿using BuildingBlocks.Exceptions;
 
-public class ProductNotFoundException :Exception
+namespace Catalog.API;
+
+public class ProductNotFoundException :NotFoundException
 {
 
-    public ProductNotFoundException(Guid Id):base($"Product with id {Id} was  ")
+    public ProductNotFoundException(Guid Id)
+    :base("Product",Id)
     {
 
         

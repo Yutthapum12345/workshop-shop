@@ -16,7 +16,7 @@ public class DeleteProductsHandler(IDocumentSession session) : ICommandHandler<D
         
         if (product == null)
         {
-            throw new InvalidOperationException("Not Found");
+            throw new Exception("Not Found");
         }
 
 

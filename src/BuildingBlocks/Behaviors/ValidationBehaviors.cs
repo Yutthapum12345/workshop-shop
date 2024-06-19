@@ -7,17 +7,17 @@ public class ValidationBehaviors<TRequest,TResponse>(IEnumerable<IValidator<TReq
 {
 
     public async Task<TResponse>Handle(TRequest request,RequestHandlerDelegate<TResponse>next,CancellationToken cancellationToken)
-
     {
-     var context = new ValidationContext<TRequest>(request);
-     var validatorResult = await Task.WhenAll(validators.Select(v=>v.ValidateAsync(context,cancellationToken)));
+        var context = new ValidationContext<TRequest>(request);
+        var validatorResult = await Task.WhenAll(validators.Select(v=>v.ValidateAsync(context,cancellationToken)));
 
-     var failures = validatorResult.Where(x=>x.Errors.Any()).SelectMany(x=>x.Errors).ToList();
-     if(failures.Any())
-     {
+        var failures = validatorResult.Where(x=>x.Errors.Any()).SelectMany(x=>x.Errors).ToList();
 
-        throw new ValidationException(failures);
-     }
+        
+        if(failures.Any())
+        {
+            throw new ValidationException(failures);
+        }
 
      return await next();
     }
