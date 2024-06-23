@@ -2,8 +2,12 @@
 
 using BuildingBlocks;
 using BuildingBlocks.Exceptions.Handler;
+using Catalog.API.Data;
 using FluentValidation;
+using HealthChecks.UI.Client;
+using HealthChecks.UI.Core;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc;
 using OpenTelemetry.Trace;
 using System.Reflection;
@@ -20,7 +24,7 @@ builder.Services.AddMediatR(config =>
 
 });
 
-
+builder.Services.AddHealthChecks().AddNpgSql(builder.Configuration.GetConnectionString("Database"));
 builder.Services.AddMarten(config =>
 {
    
@@ -29,6 +33,11 @@ builder.Services.AddMarten(config =>
 }).UseLightweightSessions();
 
 builder.Services.AddValidatorsFromAssembly(Assembly);
+
+if(builder.Environment.IsDevelopment())
+{
+    builder.Services.InitializeMartenWith<CatalogInitialData>();
+}
 
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
@@ -49,6 +58,11 @@ app.UseHttpsRedirection();
 
 app.UseExceptionHandler(options=>{
 
+});
+
+app.UseHealthChecks("/health",new HealthCheckOptions{
+
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
 
 app.Run();
