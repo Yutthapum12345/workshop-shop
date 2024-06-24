@@ -12,7 +12,7 @@ public class CatalogInitialData:IInitialData
 
         if(await session.Query<Product>().AnyAsync())
         {
-            return  ;
+            return;
         }
 
         session.Store<Product>(GetProducts());
