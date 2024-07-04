@@ -11,7 +11,6 @@ public class GetProductOIdQuery(IDocumentSession session) : IQueryHandler<GetPro
 
         var products = await session.Query<Product>().FirstOrDefaultAsync(pd=>pd.Id==request.Id);
         
-       
 
         if(products==null)
         {

@@ -19,9 +19,6 @@ public class DeleteProductsHandler(IDocumentSession session) : ICommandHandler<D
             throw new Exception("Not Found");
         }
 
-
-
-
         session.Delete(product);
         await session.SaveChangesAsync();
 

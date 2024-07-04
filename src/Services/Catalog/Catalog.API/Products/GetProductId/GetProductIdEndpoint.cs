@@ -14,7 +14,6 @@ public class GetProductsEndpoint : ICarterModule
             var query = new GetProductIdRequest(Id);
             var reuslt = query.Adapt<GetProductIdQuery>();
 
-
             var result = await sender.Send(reuslt);
 
             var response = result.Adapt<GetProductIdResponse>();

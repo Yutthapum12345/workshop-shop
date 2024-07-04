@@ -30,7 +30,7 @@ services:
     volumes:
     - ~/.microsoft/usersecrets:/home/app/.microsoft/usersecrets:ro
     - ~/.aspnet/https:/home/app/.aspnet/https:ro
-    - ~/.aspnet/https:/https:ro
+ 
 
 volumes:
   catalogdb_volume:

@@ -24,6 +24,16 @@ builder.Services.AddMediatR(config =>
 
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddHealthChecks().AddNpgSql(builder.Configuration.GetConnectionString("Database"));
 builder.Services.AddMarten(config =>
 {
@@ -64,6 +74,6 @@ app.UseHealthChecks("/health",new HealthCheckOptions{
 
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
-
+app.UseCors();
 app.Run();
 

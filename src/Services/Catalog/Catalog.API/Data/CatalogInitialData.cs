@@ -1,4 +1,4 @@
-﻿using Catalog.API.Products.GetProductId;
+﻿
 using Marten.Schema;
 namespace Catalog.API.Data;
 
