@@ -13,6 +13,25 @@ services:
     volumes:
       - catalogdb_volume:/var/lib/postgresql/data
 
+  basketdb:
+    container_name: basketdb
+    environment:
+       POSTGRES_USER: siamese
+       POSTGRES_PASSWORD: siamese
+       POSTGRES_DB: basketdb
+    restart: always
+    ports:
+      - "5431:5432"
+    volumes:
+      - basketdb_volume:/var/lib/postgresql/data
+
+  distributedcache:
+    container_name: distributedcache
+    restart: always
+    ports:
+    - "6379:6379"
+
+
   catalog.api:
     container_name: catalog-api
     environment:
@@ -24,6 +43,7 @@ services:
       ASPNETCORE_Kestrel__Certificates__Default__Path: /home/app/.aspnet/https/aspnetapp.pfx
     depends_on:
       - catalogdb
+      - basketdb
     ports:
       - "6000:8080"
       - "6050:8081"
@@ -34,3 +54,4 @@ services:
 
 volumes:
   catalogdb_volume:
+  basketdb_volume:

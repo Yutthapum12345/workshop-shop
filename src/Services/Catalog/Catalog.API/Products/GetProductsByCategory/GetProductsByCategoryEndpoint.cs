@@ -9,7 +9,7 @@ public class GetProductsByCategoryEndpoint
         {
            
             var query = new GetProductIdRequest(Cate);
-           ;
+           
 
 
             var result = await sender.Send(query);

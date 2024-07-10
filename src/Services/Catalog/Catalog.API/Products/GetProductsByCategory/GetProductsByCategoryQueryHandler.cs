@@ -7,7 +7,7 @@ public class GetProductsByCategoryQueryHandler(IDocumentSession session) : IQuer
   public async  Task<GetProductsByCategoryResult> Handle(GetProductsByCategoryQuery request, CancellationToken cancellationToken)
     {
 
-           var product = await session.Query<Product>().Where(pd=>pd.Catelog.Contains(request.Cate)).ToListAsync();
+        var product = await session.Query<Product>().Where(pd=>pd.Catelog.Contains(request.Cate)).ToListAsync();
         return new GetProductsByCategoryResult(product);
            
     }

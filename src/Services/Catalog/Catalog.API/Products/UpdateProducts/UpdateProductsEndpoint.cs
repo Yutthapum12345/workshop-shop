@@ -8,7 +8,6 @@ public record UpdateProductRequestId(string Name);
 
 public class UpdateProducts : ICarterModule
 {
-
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapPut("/products/{Name}", async (string Name,UpdateProductRequest request, ISender sender) =>
@@ -29,13 +28,8 @@ public class UpdateProducts : ICarterModule
  
                     var responsee = responsecom.Adapt<UpdateProductResponse>();
 
-                  
-
-                }
-             
-                
-                
-                return response.Name;
+                }                
+            return response.Name;
         });
                 
     }    

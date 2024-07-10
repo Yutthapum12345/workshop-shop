@@ -1,0 +1,30 @@
+﻿using Carter;
+using MediatR;
+using Carter;
+using Mapster;
+using MediatR;
+namespace Basket.API.Basket.DeleteBasket;
+
+public record DeleteBasketResponse(bool IsSuccess);
+
+
+
+
+public class DeleteBasketEndpoint:ICarterModule
+{
+    public void AddRoutes(IEndpointRouteBuilder app)
+    {
+
+        app.MapDelete("/basket/{userName}",async(string userName,ISender sender)=>{
+
+
+            var result =   await sender.Send(new DeleteBasketCommad(userName));
+
+            var response = result.Adapt<DeleteBasketResponse>();
+
+            return response;
+
+        });
+    }
+
+}
