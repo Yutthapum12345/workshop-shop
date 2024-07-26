@@ -8,8 +8,7 @@ services:
     image: postgres
   distributedcache:
     image: redis
-  discountdb:
-    image: postgres
+ 
 
   catalog.api:
     image: catalog-api
@@ -31,6 +30,6 @@ services:
 volumes:
   catalogdb_volume:
   basketdb_volume:
-  discountdb_volume:
+
   distributedcache_volume:
   

@@ -13,7 +13,7 @@ service DiscoutProtoService{
 
     rpc GetDiscout(GetDiscoutRequest) returns (CouponModel);
     rpc CreateDiscout(CreateDiscoutRequest) returns (CouponModel);
-    rpc UpdateDiscout(UpdateDiscoutRequest) returns (CouponModel);
+    rpc UpdateDiscout(UpdateDiscoutRequest) returns (UpdateDiscoutResponse);
     rpc DeleteDiscout(DeleteDiscoutRequest) returns (DeleteDiscountResponse);
 
 
@@ -43,8 +43,14 @@ message CreateDiscoutRequest{
 
 message UpdateDiscoutRequest{
 
+    string ProductName = 1;
+}
+
+message UpdateDiscoutResponse{
+
     CouponModel coupon = 1;
 }
+
 
 message  DeleteDiscoutRequest{
 

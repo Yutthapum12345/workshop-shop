@@ -60,22 +60,25 @@ public override async Task<CouponModel> CreateDiscout(CreateDiscoutRequest reque
         return new DeleteDiscountResponse(new DeleteDiscountResponse{Success=true});
     }
 
-
-    public override async Task<CouponModel> UpdateDiscout(UpdateDiscoutRequest request, ServerCallContext context)
+    public override async Task<UpdateDiscoutResponse> UpdateDiscout(UpdateDiscoutRequest request, ServerCallContext context)
     {
-       var coupon = request;
-       var discoutModel = coupon.Adapt<Coupon>();
+        var coupon = await discountConext.Coupons.FirstOrDefaultAsync(x=>x.ProductName==request.ProductName);
+      
 
-       if(coupon ==null){
-            throw new RpcException(new Status(StatusCode.NotFound,"Update is Failed"));
-       }
+        var discoutModel = coupon.Adapt<Coupon>();
+        if(coupon == null)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound,"Delete is Failed"));
+        }
+        discountConext.Coupons.Update(coupon);
+        await discountConext.SaveChangesAsync();
 
-       discountConext.Coupons.Update(discoutModel);
-       await discountConext.SaveChangesAsync();
+        var couponModel = discoutModel.Adapt<CouponModel>();
 
-       var couponModel = coupon.Adapt<CouponModel>();
-       return couponModel;
+        return new UpdateDiscoutResponse(new UpdateDiscoutResponse{Coupon=couponModel});
+       
     }
+
 
 
 
