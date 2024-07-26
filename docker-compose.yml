@@ -3,20 +3,34 @@ version: '3.8'
 
 services:
   catalogdb:
-      image: postgres
+    image: postgres
   basketdb:
-      image: postgres
-
+    image: postgres
   distributedcache:
     image: redis
+  discountdb:
+    image: postgres
 
   catalog.api:
-      image: catalog-api
-      build:
-        context: .
-        dockerfile: src/Services/Catalog/Catalog.API/Dockerfile
+    image: catalog-api
+    build:
+      context: .
+      dockerfile: src/Services/Catalog/Catalog.API/Dockerfile
+  basket.api:
+    image: basket-api
+    build:
+      context: .
+      dockerfile: src/Services/Basket/Basket.API/Dockerfile
+
+  discount.grpc:
+    image: discount-grpc
+    build:
+      context: .
+      dockerfile: src/Services/Discount/Discout.Grpc/Dockerfile
       
 volumes:
   catalogdb_volume:
   basketdb_volume:
+  discountdb_volume:
+  distributedcache_volume:
   

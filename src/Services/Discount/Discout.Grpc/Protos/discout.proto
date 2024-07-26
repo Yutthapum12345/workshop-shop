@@ -1,0 +1,59 @@
+syntax = "proto3"; //ใช photocol buffer 3
+
+option csharp_namespace = "Discout.Grpc.Protos";
+
+package discout;
+
+
+// สร้าง Service
+
+
+service DiscoutProtoService{
+
+
+    rpc GetDiscout(GetDiscoutRequest) returns (CouponModel);
+    rpc CreateDiscout(CreateDiscoutRequest) returns (CouponModel);
+    rpc UpdateDiscout(UpdateDiscoutRequest) returns (CouponModel);
+    rpc DeleteDiscout(DeleteDiscoutRequest) returns (DeleteDiscountResponse);
+
+
+}
+
+
+message GetDiscoutRequest {
+
+    //ชื่อฟิลด์           //field number
+    string ProductName = 1;
+}
+
+
+message CouponModel{
+
+    int32 Id =1;
+    string ProductName =2;
+    string ProductDescription =3;
+    int32 Amount =4;
+     
+}
+
+message CreateDiscoutRequest{
+
+    CouponModel coupon =1;
+}
+
+message UpdateDiscoutRequest{
+
+    CouponModel coupon = 1;
+}
+
+message  DeleteDiscoutRequest{
+
+    string ProductName =1;
+}
+
+message DeleteDiscountResponse{
+
+    bool success =1;
+}
+
+

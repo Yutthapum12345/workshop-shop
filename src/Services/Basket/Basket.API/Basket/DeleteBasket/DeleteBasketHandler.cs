@@ -6,7 +6,7 @@ namespace Basket.API.Basket.DeleteBasket;
 public record DeleteBasketCommad(string userName):ICommand<DeletBasketResult>;
 
 
-public  record DeletBasketResult(bool Isucess);
+public  record DeletBasketResult(bool IsSuccess);
 
 
 public class DeleteBasketCommandValidator :AbstractValidator<DeleteBasketCommad>

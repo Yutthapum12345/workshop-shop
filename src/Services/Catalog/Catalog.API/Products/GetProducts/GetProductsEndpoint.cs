@@ -1,5 +1,4 @@
 
-using OpenTelemetry.Trace;
 
 namespace Catalog.API.Products.GetProducts;
 public record GetProductsRequest(int? Page=1,int? PageSize=12,string? Cateloo="") :IQuery<GetProductsResponse>;
